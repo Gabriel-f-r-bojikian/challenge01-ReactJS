@@ -48,13 +48,15 @@ export function TaskList() {
     }
   }
 
+  function findIndexOfTaskById(id: number) {
+    return tasks.map((item) => item.id).indexOf(id);
+  }
+
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
     let placeholderList: Task[] = createPlaceHolderTaskList();
 
-    const indexOfTaskToBeCompleted: number = placeholderList.map((item) => item.id).indexOf(id);
-
-    placeholderList[indexOfTaskToBeCompleted].isComplete = true;
+    placeholderList[findIndexOfTaskById(id)].isComplete = !placeholderList[findIndexOfTaskById(id)].isComplete;
 
     setTasks(placeholderList);
   }
@@ -62,10 +64,8 @@ export function TaskList() {
   function handleRemoveTask(id: number) {
     // Remova uma task da listagem pelo ID
     let placeholderList: Task[] = createPlaceHolderTaskList();
-
-    const indexOfTaskToBeRemoved: number = placeholderList.map((item) => item.id).indexOf(id);
     
-    placeholderList.splice(indexOfTaskToBeRemoved, 1);
+    placeholderList.splice(findIndexOfTaskById(id), 1);
 
     setTasks(placeholderList);
   }
